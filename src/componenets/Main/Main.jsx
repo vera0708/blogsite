@@ -12,8 +12,6 @@ const LIST = [
     { value: 'Мои посты' },
 ].map(assignId);
 
-// console.log('LIST: ', LIST);
-
 export const Main = () => {
     const [list, setList] = useState(LIST);
 
