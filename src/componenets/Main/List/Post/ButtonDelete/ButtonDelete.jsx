@@ -1,5 +1,7 @@
-export const ButtonDelete = ({ className, text }) => {
-    return <button className={className} aria-label={text} >
+import style from './ButtonDelete.module.css';
+
+export const ButtonDelete = () => {
+    return <button className={style.delete} aria-label='Удалить' >
         <svg
             width='24'
             height='24'

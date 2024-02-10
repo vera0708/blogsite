@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types';
 import style from './Tabs.module.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { assignId } from '../../../utils/generateRandomId';
 import { ReactComponent as ArrowIcon } from './img/arrow.svg';
 import { ReactComponent as EyeIcon } from './img/eye.svg';
 import { ReactComponent as HomeIcon } from './img/home.svg';
 import { ReactComponent as PostIcon } from './img/post.svg';
 import { ReactComponent as SaveIcon } from './img/save.svg';
+import { debounceRaf } from '../../../utils/debounce';
 
 export const Tabs = ({ list, setList, addItem }) => {
 
@@ -18,23 +19,41 @@ export const Tabs = ({ list, setList, addItem }) => {
     ].map(assignId);
 
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [isDropdown, setIsDropdown] = useState(true);
 
+    const handleResize = () => {
+        if (document.documentElement.clientWidth < 768) {
+            setIsDropdown(true);
+        } else {
+            setIsDropdown(false);
+        }
+    };
+
+    useEffect(() => {
+        const debounceResize = debounceRaf(handleResize);
+        debounceResize();
+        window.addEventListener('resize', debounceResize);
+        return () => {
+            window.removeEventListener('resize', debounceResize);
+        };
+    }, []);
     // const handleClick = id => {
     //     setList(list.filter(item => item.id !== id));
     // };
     return (
         <div className={style.container}>
-            <div className={style.wrapperBtn}>
-                <button
-                    className={style.btn}
-                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                >
-                    Показать / скрыть меню
-                    <ArrowIcon width={15} height={15} />
-                </button>
-            </div>
+            {isDropdown && (
+                <div className={style.wrapperBtn}>
+                    <button
+                        className={style.btn}
+                        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                    >
+                        Показать / скрыть меню
+                        <ArrowIcon width={15} height={15} />
+                    </button>
+                </div>)}
 
-            {isDropdownOpen && (
+            {(isDropdownOpen || !isDropdown) && (
                 <ul className={style.list}
                     onClick={() => setIsDropdownOpen(false)}>
                     {LIST.map(({ value, id, Icon }) => (
