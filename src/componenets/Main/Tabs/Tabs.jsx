@@ -3,19 +3,21 @@ import style from './Tabs.module.css';
 import { useEffect, useState } from 'react';
 import { assignId } from '../../../utils/generateRandomId';
 import { ReactComponent as ArrowIcon } from './img/arrow.svg';
-import { ReactComponent as EyeIcon } from './img/eye.svg';
-import { ReactComponent as HomeIcon } from './img/home.svg';
-import { ReactComponent as PostIcon } from './img/post.svg';
-import { ReactComponent as SaveIcon } from './img/save.svg';
+import { ReactComponent as HomeIcon } from './icon/home.svg';
+// import { ReactComponent as EyeIcon } from './img/eye.svg';
+import { ReactComponent as TopIcon } from './icon/top.svg';
+import { ReactComponent as BestIcon } from './icon/best.svg';
+import { ReactComponent as SaveIcon } from './icon/hot.svg';
 import { debounceRaf } from '../../../utils/debounce';
 
 export const Tabs = ({ list, setList, addItem }) => {
 
     const LIST = [
-        { value: 'Главная', Icon: EyeIcon },
-        { value: 'Просмотренные', Icon: HomeIcon },
-        { value: 'Сохраненные', Icon: PostIcon },
-        { value: 'Мои посты', Icon: SaveIcon },
+        { value: 'Главная', Icon: HomeIcon },
+        // { value: 'Главная', Icon: EyeIcon },
+        { value: 'Tоп', Icon: TopIcon },
+        { value: 'Лучшие', Icon: BestIcon },
+        { value: 'Горячие', Icon: SaveIcon },
     ].map(assignId);
 
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
