@@ -13,11 +13,13 @@ export const Text = prop => {
         children,
         href,
         center,
+        arialabel,
     } = prop;
 
     const classes = classNames(
         className,
         style[color],
+        style[arialabel],
         { [style.center]: center },
         { [style[`fs${size}`]]: size },
         { [style[`fst${tsize}`]]: tsize },
@@ -25,7 +27,7 @@ export const Text = prop => {
     );
 
     return (
-        <As className={classes} href={href}>{children}</As>
+        <As className={classes} href={href} aria-label={arialabel}>{children}</As>
     );
 };
 
