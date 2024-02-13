@@ -1,12 +1,14 @@
 import { Layout } from '../Layout/Layout';
 import Auth from './Auth';
 import style from './Header.module.css';
-import PropTypes from 'prop-types';
 import { Heading } from './Heading/Heading';
 import { Logo } from './Logo/Logo';
 import { Search } from './Search/Search';
+import { tokenContext } from '../../context/tokenContext';
 
-export const Header = ({ token }) => {
+export const Header = () => {
+    const { Consumer } = tokenContext;
+
     return (
         <header className={style.header}>
             <Layout>
@@ -14,13 +16,11 @@ export const Header = ({ token }) => {
                     <Logo />
                     <Heading text='Главная' />
                     <Search />
-                    <Auth token={token} />
+                    <Consumer>
+                        {ctx => <Auth token={ctx.token} delToken={ctx.delToken} />}
+                    </Consumer>
                 </div>
             </Layout>
         </header>
     );
-};
-
-Header.propTypes = {
-    token: PropTypes.string,
 };

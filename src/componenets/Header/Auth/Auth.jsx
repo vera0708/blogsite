@@ -57,4 +57,4 @@ export const Auth = ({ token }) => {
 Auth.propTypes = {
     token: PropTypes.string,
 };
-{/* <LogIcon className={style.svg} /> */ }
+//  <LogIcon className={style.svg} /> 
