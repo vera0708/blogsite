@@ -1,60 +1,58 @@
-import { useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import style from './Auth.module.css';
-import PropTypes from 'prop-types';
-// import loginImg from './img/login.svg';
 import { ReactComponent as LogIcon } from './img/login.svg';
 import { Text } from '../../../UI/Text/Text';
 import { urlAuth } from '../../../API/auth';
-import { URL_API } from '../../../API/const';
+import { useAuth } from '../../../hooks/useAuth';
+import { tokenContext } from '../../../context/tokenContext';
 
-export const Auth = ({ token }) => {
-    const [auth, setAuth] = useState({});
+export const Auth = () => {
+    const { delToken } = useContext(tokenContext);
+    //    const [auth, setAuth] = useState({});
+    const [auth, clearAuth] = useAuth();
+    const [showLogout, setShowLogout] = useState(false);
 
-    useEffect(() => {
-        if (!token) return;
-        fetch(`${URL_API}/api/v1/me`, {
-            headers: {
-                Authorization: `bearer ${token}`,
-            },
-        }).then(response => response.json())
-            .then(({ name, icon_img: iconImg }) => {
-                const img = iconImg.replace(/\?.*$/, '')
-                setAuth({ name, img });
-            })
-            .catch((err) => {
-                console.error(err);
-                setAuth({})
-            });
-    }, [token]);
+    const getOut = () => {
+        setShowLogout(!showLogout);
+    };
+
+    const logOut = () => {
+        delToken();
+        clearAuth();
+    }
+
     return (
         <div className={style.container}>
             {auth.name ? (
-                <button className={style.btn}>
-                    <img className={style.img}
-                        src={auth.img}
-                        title={auth.name}
-                        alt={`Aвaтaр ${auth.name}`}
-                    />
-                    <Text
-                        As='span'
-                        className={style.authName}
-                    >{auth.name}
-                    </Text>
-                </button>
-            ) : (
-                <Text
-                    As='a'
+                <>
+                    <button className={style.btn}
+                        onClick={getOut}
+                    >
+                        <img className={style.img}
+                            src={auth.img}
+                            title={auth.name}
+                            alt={`Aвaтaр ${auth.name}`}
+                        />
+                        <Text As='span'
+                            className={style.authName}
+                        >{auth.name}
+                        </Text>
+                    </button>
+                    {showLogout && (
+                        <button className={style.logout}
+                            onClick={logOut}>
+                            Выйти
+                        </button>
+                    )}
+                </>) : (
+                <Text As='a'
                     className={style.authLink}
                     href={urlAuth}>
-                    <LogIcon />
+                    <LogIcon
+                        className={style.svg}
+                    />
                 </Text>
             )}
-
         </div>
     );
 };
-
-Auth.propTypes = {
-    token: PropTypes.string,
-};
-//  <LogIcon className={style.svg} /> 
