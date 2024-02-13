@@ -34,6 +34,11 @@
     object-fit: cover;
 }
 
+.authName {
+    color: brown;
+    size: 12px;
+}
+
 .authLink {
     display: block;
     width: 30px;

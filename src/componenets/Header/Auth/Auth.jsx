@@ -17,24 +17,39 @@ export const Auth = ({ token }) => {
                 Authorization: `bearer ${token}`,
             },
         }).then(response => response.json())
-            .then(data => {
-                console.log(data);
-                setAuth({ name: 'Vera' });
+            .then(({ name, icon_img: iconImg }) => {
+                const img = iconImg.replace(/\?.*$/, '')
+                setAuth({ name, img });
+            })
+            .catch((err) => {
+                console.error(err);
+                setAuth({})
             });
     }, [token]);
     return (
         <div className={style.container}>
-            <button className={style.button}>
-                {auth.name ? (
-                    <img src={'img'} title={auth.name} alt={`Avatar ${auth.name}`} />
-                ) : (
+            {auth.name ? (
+                <button className={style.btn}>
+                    <img className={style.img}
+                        src={auth.img}
+                        title={auth.name}
+                        alt={`Aвaтaр ${auth.name}`}
+                    />
                     <Text
-                        As='a'
-                        href={urlAuth}>
-                        <LogIcon />
+                        As='span'
+                        className={style.authName}
+                    >{auth.name}
                     </Text>
-                )}
-            </button>
+                </button>
+            ) : (
+                <Text
+                    As='a'
+                    className={style.authLink}
+                    href={urlAuth}>
+                    <LogIcon />
+                </Text>
+            )}
+
         </div>
     );
 };
