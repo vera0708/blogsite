@@ -13,11 +13,9 @@ export const Main = () => {
     return (
         <main className={style.main}>
             <Layout>
-                <div className={style.container}>
-                    {/* <Tabs list={list} setList={setList} addItem={addItem} /> */}
-                    <Tabs />
-                    <List />
-                </div>
+                {/* <Tabs list={list} setList={setList} addItem={addItem} /> */}
+                <Tabs />
+                <List />
             </Layout>
         </main>
     )

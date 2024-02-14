@@ -45,4 +45,4 @@ Text.propTypes = {
     ]),
     href: PropTypes.string,
     center: PropTypes.bool,
-}
+};

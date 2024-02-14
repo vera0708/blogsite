@@ -1,17 +1,17 @@
-import { useContext, useState } from 'react';
+import { useState, useContext } from 'react';
 import style from './Auth.module.css';
 import { ReactComponent as LogIcon } from './img/login.svg';
 import { Text } from '../../../UI/Text/Text';
 import { urlAuth } from '../../../API/auth';
-import { useAuth } from '../../../hooks/useAuth';
+// import { useAuth } from '../../../hooks/useAuth';
 import { tokenContext } from '../../../context/tokenContext';
+import { authContext } from '../../../context/authContext';
 
 export const Auth = () => {
     const { delToken } = useContext(tokenContext);
-    //    const [auth, setAuth] = useState({});
-    const [auth, clearAuth] = useAuth();
+    // const [auth, clearAuth] = useAuth();
     const [showLogout, setShowLogout] = useState(false);
-
+    const { auth, clearAuth } = useContext(authContext);
     const getOut = () => {
         setShowLogout(!showLogout);
     };
@@ -19,7 +19,7 @@ export const Auth = () => {
     const logOut = () => {
         delToken();
         clearAuth();
-    }
+    };
 
     return (
         <div className={style.container}>
