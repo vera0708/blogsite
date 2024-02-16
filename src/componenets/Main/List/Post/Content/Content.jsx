@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Text } from '../../../../../UI/Text/Text';
 import style from './Content.module.css';
 import PropTypes from 'prop-types';
@@ -6,23 +6,21 @@ import PropTypes from 'prop-types';
 export const Content = ({ title, author }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
+    useEffect(() => {
+        console.log(isModalOpen)
+    }, [isModalOpen])
+
     return (
         <div className={style.content}>
             <Text
                 As='h2'
                 className={style.title}>
-                <Text
-                    As='a'
-                    className={style.linkPost}
-                    size={18}
-                    tsize={24}
+                <a
                     href='#post'
-                    onClick={() => {
-                        setIsModalOpen(true);
-                    }}
-                >
+                    className={style.linkPost}
+                    onClick={() => setIsModalOpen(true)}>
                     {title}
-                </Text>
+                </a>
             </Text>
             <Text
                 As='a'

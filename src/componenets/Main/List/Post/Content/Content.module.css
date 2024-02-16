@@ -12,6 +12,7 @@
     display: -webkit-box;
     margin-bottom: 10px;
     transition: color 0.36s ease-in-out;
+    font-size: 12px;
 }
 
 .linkPost:after {

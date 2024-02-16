@@ -64,7 +64,7 @@ export const Tabs = ({ list, setList, addItem }) => {
                             <button
                                 className={style.btn}
                                 onClick={() => {
-                                    console.log(value);
+                                    // console.log(value);
                                 }}>
                                 {value}
                                 {Icon && <Icon width={30} height={30} />}

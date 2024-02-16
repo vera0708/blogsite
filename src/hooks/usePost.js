@@ -1,26 +1,30 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { tokenContext } from "../context/tokenContext";
 import { URL_API } from "../API/const";
 
 export const usePost = () => {
-    const [post, setPost] = useState({});
+    const [posts, setPosts] = useState([]);
+    const { token } = useContext(tokenContext);
 
     useEffect(() => {
-        // if (!token) return;
-        fetch(`${URL_API}/api/best`, {
-            // headers: {
-            //     Authorization: `bearer ${token}`,
-            // },
+        if (!token) return;
+        fetch(`${URL_API}/best`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
         }).then((response) => {
             if (response.status === 401) {
                 throw new Error(response.status);
             }
             return response.json()
+        }).then((data) => {
+            const posts = data?.data?.children?.map(post => post?.data);
+            setPosts(posts);
         })
-            // .then((json) => setPost(json))
             .catch((err) => {
                 console.error(err);
             });
-    }, []);
+    }, [token]);
 
-    return [post, setPost]
+    return { posts, setPosts };
 };

@@ -4,11 +4,9 @@ import { Post } from './Post/Post';
 import { usePost } from '../../../hooks/usePost';
 
 export const List = () => {
-    const { post, setPost } = usePost();
-    console.log('post: ', post);
-    console.log('setPost: ', setPost);
+    const { posts } = usePost();
 
-    const postData = [
+    /*const postData = [
         {
             thumbnail: '',
             title: 'Title1',
@@ -38,13 +36,13 @@ export const List = () => {
             date: '2024-02-09T06:05:00.000Z',
             id: '789',
         },
-    ];
+    ];*/
 
     return (
         <ul className={style.list}>
-            {postData.map((postData) => (
+            {posts ? posts.map((postData) => (
                 <Post key={postData.id} postData={postData} />
-            ))},
+            )) : []},
         </ul>
     );
 };

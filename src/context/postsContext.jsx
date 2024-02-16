@@ -5,10 +5,10 @@ import { usePost } from "../hooks/usePost";
 export const postsContext = React.createContext({});
 
 export const PostsContextProvider = ({ children }) => {
-    const [post, setPost] = usePost();
+    const { posts, setPosts } = usePost();
 
     return (
-        <postsContext.Provider value={{ post, setPost }}>
+        <postsContext.Provider value={{ posts, setPosts }}>
             {children}
         </postsContext.Provider>
     );
