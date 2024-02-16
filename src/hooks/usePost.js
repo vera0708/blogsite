@@ -16,9 +16,11 @@ export const usePost = () => {
             }
             return response.json()
         })
+            // .then((json) => setPost(json))
             .catch((err) => {
                 console.error(err);
             });
     }, []);
+
     return [post, setPost]
 };
