@@ -11,7 +11,6 @@ import { ReactComponent as SaveIcon } from './icon/hot.svg';
 import { debounceRaf } from '../../../utils/debounce';
 
 export const Tabs = ({ list, setList, addItem }) => {
-
     const LIST = [
         { value: 'Главная', Icon: HomeIcon },
         // { value: 'Главная', Icon: EyeIcon },
@@ -42,6 +41,7 @@ export const Tabs = ({ list, setList, addItem }) => {
     // const handleClick = id => {
     //     setList(list.filter(item => item.id !== id));
     // };
+
     return (
         <div className={style.container}>
             {isDropdown && (
@@ -65,7 +65,6 @@ export const Tabs = ({ list, setList, addItem }) => {
                                 className={style.btn}
                                 onClick={() => {
                                     console.log(value);
-                                    // handleClick(id);
                                 }}>
                                 {value}
                                 {Icon && <Icon width={30} height={30} />}
